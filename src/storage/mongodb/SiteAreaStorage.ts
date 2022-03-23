@@ -151,7 +151,7 @@ export default class SiteAreaStorage {
     // Add Last Changed/Created props
     DatabaseUtils.addLastChangedCreatedProps(siteAreaMDB, siteAreaToSave);
     // Modify
-    await global.database.getCollection<SiteArea>(tenant.id, 'siteareas').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'siteareas').findOneAndUpdate(
       { _id: siteAreaMDB._id },
       { $set: siteAreaMDB },
       { upsert: true, returnDocument: 'after' }

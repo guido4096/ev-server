@@ -135,7 +135,7 @@ export default class UserStorage {
       // At least one Site
       if (!Utils.isEmptyArray(siteIDs)) {
         // Create the lis
-        await global.database.getCollection<User>(tenant.id, 'siteusers').deleteMany({
+        await global.database.getCollection<any>(tenant.id, 'siteusers').deleteMany({
           'userID': DatabaseUtils.convertToObjectID(userID),
           'siteID': { $in: siteIDs.map((siteID) => DatabaseUtils.convertToObjectID(siteID)) }
         });
@@ -169,7 +169,7 @@ export default class UserStorage {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
     // Execute
-    await global.database.getCollection<User>(tenant.id, 'siteusers').updateMany(
+    await global.database.getCollection<any>(tenant.id, 'siteusers').updateMany(
       { userID: DatabaseUtils.convertToObjectID(userID) },
       {
         $set: {
@@ -189,7 +189,7 @@ export default class UserStorage {
       'siteAdmin': false
     };
     // Execute
-    await global.database.getCollection<User>(tenant.id, 'siteusers').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'siteusers').findOneAndUpdate(
       { userID: siteUserMDB.userID, siteID: siteUserMDB.siteID },
       { $set: siteUserMDB },
       { upsert: true }

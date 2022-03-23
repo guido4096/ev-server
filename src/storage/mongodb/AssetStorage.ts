@@ -85,7 +85,7 @@ export default class AssetStorage {
     // Add Last Changed/Created props
     DatabaseUtils.addLastChangedCreatedProps(assetMDB, assetToSave);
     // Modify
-    await global.database.getCollection<Asset>(tenant.id, 'assets').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'assets').findOneAndUpdate(
       { _id: assetMDB._id },
       { $set: assetMDB },
       { upsert: true }
@@ -342,7 +342,7 @@ export default class AssetStorage {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
     // Delete the Asset
-    await global.database.getCollection<Asset>(tenant.id, 'assets')
+    await global.database.getCollection<any>(tenant.id, 'assets')
       .findOneAndDelete({ '_id': DatabaseUtils.convertToObjectID(id) });
     // Delete Image
     await global.database.getCollection<any>(tenant.id, 'assetimages')

@@ -171,7 +171,7 @@ export default class BillingStorage {
       payInvoiceUrl: invoiceToSave.payInvoiceUrl
     };
     // Modify and return the modified document
-    await global.database.getCollection<BillingInvoice>(tenant.id, 'invoices').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'invoices').findOneAndUpdate(
       { _id: invoiceMDB._id },
       { $set: invoiceMDB },
       { upsert: true, returnDocument: 'after' }
@@ -203,7 +203,7 @@ export default class BillingStorage {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
     // Delete the Invoice
-    await global.database.getCollection<BillingInvoice>(tenant.id, 'invoices')
+    await global.database.getCollection<any>(tenant.id, 'invoices')
       .findOneAndDelete({ '_id': DatabaseUtils.convertToObjectID(id) });
     await Logging.traceDatabaseRequestEnd(tenant, MODULE_NAME, 'deleteInvoice', startTime, { id });
   }
@@ -212,7 +212,7 @@ export default class BillingStorage {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
     // Delete the Invoice
-    await global.database.getCollection<BillingInvoice>(tenant.id, 'invoices')
+    await global.database.getCollection<any>(tenant.id, 'invoices')
       .findOneAndDelete({ 'invoiceID': id });
     await Logging.traceDatabaseRequestEnd(tenant, MODULE_NAME, 'deleteInvoiceByInvoiceID', startTime, { id });
   }

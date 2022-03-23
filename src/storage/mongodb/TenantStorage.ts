@@ -53,7 +53,7 @@ export default class TenantStorage {
     // Add Last Changed/Created props
     DatabaseUtils.addLastChangedCreatedProps(tenantMDB, tenantToSave);
     // Modify
-    await global.database.getCollection<Tenant>(Constants.DEFAULT_TENANT, 'tenants').findOneAndUpdate(
+    await global.database.getCollection<any>(Constants.DEFAULT_TENANT, 'tenants').findOneAndUpdate(
       tenantFilter,
       { $set: tenantMDB },
       { upsert: true, returnDocument: 'after' });
@@ -187,12 +187,12 @@ export default class TenantStorage {
   public static async deleteTenant(id: string): Promise<void> {
     const startTime = Logging.traceDatabaseRequestStart();
     // Delete
-    await global.database.getCollection<Tenant>(Constants.DEFAULT_TENANT, 'tenants')
+    await global.database.getCollection<any>(Constants.DEFAULT_TENANT, 'tenants')
       .findOneAndDelete({
         '_id': DatabaseUtils.convertToObjectID(id)
       });
     // Delete logo
-    await global.database.getCollection<Tenant>(Constants.DEFAULT_TENANT, 'tenantlogos')
+    await global.database.getCollection<any>(Constants.DEFAULT_TENANT, 'tenantlogos')
       .findOneAndDelete({
         '_id': DatabaseUtils.convertToObjectID(id)
       });

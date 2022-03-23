@@ -57,7 +57,7 @@ export default class SettingStorage {
     };
     DatabaseUtils.addLastChangedCreatedProps(settingMDB, settingToSave);
     // Modify
-    await global.database.getCollection<SettingDB>(tenant.id, 'settings').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'settings').findOneAndUpdate(
       settingFilter,
       { $set: settingMDB },
       { upsert: true, returnDocument: 'after' });

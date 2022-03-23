@@ -309,7 +309,7 @@ export default class TransactionStorage {
   public static async getTransactionYears(tenant: Tenant): Promise<Date[]> {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
-    const firstTransactionsMDB = await global.database.getCollection<Transaction>(tenant.id, 'transactions')
+    const firstTransactionsMDB = await global.database.getCollection<any>(tenant.id, 'transactions')
       .find({})
       .sort({ timestamp: 1 })
       .limit(1)

@@ -67,7 +67,7 @@ export default class OCPIEndpointStorage {
     // Add Last Changed/Created props
     DatabaseUtils.addLastChangedCreatedProps(ocpiEndpointMDB, ocpiEndpointToSave);
     // Modify
-    await global.database.getCollection<OCPIEndpoint>(tenant.id, 'ocpiendpoints').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'ocpiendpoints').findOneAndUpdate(
       ocpiEndpointFilter,
       { $set: ocpiEndpointMDB },
       { upsert: true, returnDocument: 'after' });
@@ -169,7 +169,7 @@ export default class OCPIEndpointStorage {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
     // Delete OcpiEndpoint
-    await global.database.getCollection<OCPIEndpoint>(tenant.id, 'ocpiendpoints')
+    await global.database.getCollection<any>(tenant.id, 'ocpiendpoints')
       .findOneAndDelete({ '_id': DatabaseUtils.convertToObjectID(id) });
     await Logging.traceDatabaseRequestEnd(tenant, MODULE_NAME, 'deleteOcpiEndpoint', startTime, { id });
   }
@@ -178,7 +178,7 @@ export default class OCPIEndpointStorage {
     const startTime = Logging.traceDatabaseRequestStart();
     DatabaseUtils.checkTenantObject(tenant);
     // Delete OcpiEndpoint
-    await global.database.getCollection<OCPIEndpoint>(tenant.id, 'ocpiendpoints').deleteMany({});
+    await global.database.getCollection<any>(tenant.id, 'ocpiendpoints').deleteMany({});
     await Logging.traceDatabaseRequestEnd(tenant, MODULE_NAME, 'deleteOcpiEndpoints', startTime, {});
   }
 }

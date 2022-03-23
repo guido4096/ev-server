@@ -42,7 +42,7 @@ export default class AsyncTaskStorage {
     // Add Last Changed/Created props
     DatabaseUtils.addLastChangedCreatedProps(asyncTaskMDB, asyncTaskToSave);
     // Modify
-    await global.database.getCollection<AsyncTask>(Constants.DEFAULT_TENANT, 'asynctasks').findOneAndUpdate(
+    await global.database.getCollection<any>(Constants.DEFAULT_TENANT, 'asynctasks').findOneAndUpdate(
       { _id: asyncTaskMDB._id },
       { $set: asyncTaskMDB },
       { upsert: true }
@@ -133,7 +133,7 @@ export default class AsyncTaskStorage {
   public static async updateRunningAsyncTaskToPending(): Promise<number> {
     const startTime = Logging.traceDatabaseRequestStart();
     // Delete the AsyncTask
-    const result = await global.database.getCollection<AsyncTask>(Constants.DEFAULT_TENANT, 'asynctasks').updateMany(
+    const result = await global.database.getCollection<any>(Constants.DEFAULT_TENANT, 'asynctasks').updateMany(
       { 'status': AsyncTaskStatus.RUNNING },
       { '$set': { 'status': AsyncTaskStatus.PENDING } }
     );

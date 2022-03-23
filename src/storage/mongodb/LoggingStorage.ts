@@ -22,7 +22,7 @@ export default class LoggingStorage {
       return;
     }
     // Delete Logs
-    const result = await global.database.getCollection<Log>(tenant.id, 'logs')
+    const result = await global.database.getCollection<any>(tenant.id, 'logs')
       .deleteMany(filters);
     // Return the result
     return { acknowledged: result.acknowledged, deletedCount: result.deletedCount };

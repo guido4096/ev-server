@@ -64,7 +64,7 @@ export default class CompanyStorage {
     // Add Last Changed/Created props
     DatabaseUtils.addLastChangedCreatedProps(companyMDB, companyToSave);
     // Modify
-    await global.database.getCollection<Company>(tenant.id, 'companies').findOneAndUpdate(
+    await global.database.getCollection<any>(tenant.id, 'companies').findOneAndUpdate(
       { _id: companyMDB._id },
       { $set: companyMDB },
       { upsert: true }
@@ -226,7 +226,7 @@ export default class CompanyStorage {
     // Delete sites associated with Company
     await SiteStorage.deleteCompanySites(tenant, id);
     // Delete the Company
-    await global.database.getCollection<Company>(tenant.id, 'companies')
+    await global.database.getCollection<any>(tenant.id, 'companies')
       .findOneAndDelete({ '_id': DatabaseUtils.convertToObjectID(id) });
     // Delete Logo
     await global.database.getCollection<any>(tenant.id, 'companylogos')
